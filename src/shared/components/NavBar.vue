@@ -1,19 +1,15 @@
 <script setup lang="ts">
-const props = defineProps({
-    title: {
-        type: String,
-        required: true
-    }
-})
+import type { RouterLink } from "@/router/link-routes";
+
+interface PropsNavBar { title?: string, links: RouterLink[] }
+const props = defineProps<PropsNavBar>()
 </script>
 
 <template>
     <nav>
         <img src="@/assets/logo.svg" alt="Vue Logo" height="25" width="25">
         <span>{{props.title}}</span>
-
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/about">Sobre</RouterLink>
+        <RouterLink v-for="{name, path, title} in props.links" :key="name" :to="path">{{title}}</RouterLink>
     </nav>
 </template>
 
